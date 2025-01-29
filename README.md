@@ -1,5 +1,5 @@
-# Boatbud
-## Boat E-Commnerce Store
+# E-Commnerce Boat Store
+Full-stack e-commerce boat store with user authentication, cart management, checkout, and manager dashboard.
 
 ## Prerequisites
 - Visual Studio 2022 installed
