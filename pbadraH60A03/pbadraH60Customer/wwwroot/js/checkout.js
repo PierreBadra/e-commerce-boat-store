@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let taxHiddenField = document.querySelector("[name=tax]");
     let totalHiddenField = document.querySelector("[name=total]");
     createSpinner();
-    let response = await fetchProvinceTax(`http://localhost:5202/api/Checkout/CalculateTax/${provinceCode.value}/${amount}`, "GET");
+    let response = await fetchProvinceTax(`https://api-boatbud.pierrebadra.me/api/Checkout/CalculateTax/${provinceCode.value}/${amount}`, "GET");
     deleteSpinner();
     tax = parseFloat(await response.text());
     
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     provinceCode.addEventListener('change', async function (event) {
         createSpinner()
-        let response = await fetchProvinceTax(`http://localhost:5202/api/Checkout/CalculateTax/${provinceCode.value}/${amount}`, "GET");
+        let response = await fetchProvinceTax(`https://api-boatbud.pierrebadra.me/api/Checkout/CalculateTax/${provinceCode.value}/${amount}`, "GET");
         deleteSpinner();
 
         tax = parseFloat(await response.text());

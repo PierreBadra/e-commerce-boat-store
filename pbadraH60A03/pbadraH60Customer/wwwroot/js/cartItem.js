@@ -80,7 +80,7 @@ window.addEventListener("DOMContentLoaded", function () {
             createSpinner(cartItemId);
 
             //TODO: Change 'localhost' to webapi when deploying on docker
-            fetch(`http://localhost:5202/api/CartItems/${cartItemId}`, {
+            fetch(`https://api-boatbud.pierrebadra.me/api/CartItems/${cartItemId}`, {
                 method: "DELETE",
             })
                 .then(response => {
@@ -150,7 +150,7 @@ window.addEventListener("DOMContentLoaded", function () {
                 };
 
                 try {
-                    const response = await fetch(`http://localhost:5202/api/CartItems/${cartItemId}`, {
+                    const response = await fetch(`https://api-boatbud.pierrebadra.me/api/CartItems/${cartItemId}`, {
                         method: "PUT",
                         headers: {
                             'Content-Type': 'application/json',
@@ -199,7 +199,7 @@ window.addEventListener("DOMContentLoaded", function () {
                     };
 
                     try {
-                        const response = await fetch(`http://localhost:5202/api/CartItems/${cartItemId}`, {
+                        const response = await fetch(`https://api-boatbud.pierrebadra.me/api/CartItems/${cartItemId}`, {
                             method: "PUT",
                             headers: {
                                 'Content-Type': 'application/json',

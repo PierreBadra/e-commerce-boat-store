@@ -9,10 +9,10 @@ searchCustomerForm.addEventListener("submit", async function (e) {
 });
 
 async function fetchCustomers() {
-    let endpoint = "http://localhost:5202/api/Customers";
+    let endpoint = "https://api-boatbud.pierrebadra.me/api/Customers";
 
     if (searchInput && searchInput.value.trim() !== "") {
-        endpoint = `http://localhost:5202/api/Customers?search=${encodeURIComponent(searchInput.value.trim())}`;
+        endpoint = `https://api-boatbud.pierrebadra.me/api/Customers?search=${encodeURIComponent(searchInput.value.trim())}`;
     }
 
     try {

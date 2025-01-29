@@ -64,7 +64,7 @@
         let searchForm = document.getElementById("searchForm");
         searchForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            let endpoint = `http://localhost:5202/api/CustomerProducts?search=${document.getElementById("searchInput").value}`
+            let endpoint = `https://api-boatbud.pierrebadra.me/api/CustomerProducts?search=${document.getElementById("searchInput").value}`
             let jsonData = await fetchData(endpoint);
             let results = document.getElementById('results');
             let resultsCount = document.getElementById('resultsCount');
