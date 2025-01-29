@@ -1,5 +1,9 @@
 # E-Commnerce Boat Store
-Full-stack e-commerce boat store with user authentication, cart management, checkout, and manager dashboard.
+Full-stack e-commerce platform featuring a manager dashboard, customer storefront, and RESTful API. Implemented role-based authentication, inventory management, and transactions.
+
+Customer Store: https://customer-boatbud.pierrebadra.me/ \
+Manager Dashboard: https://manager-boatbud.pierrebadra.me/ \
+Store Dashboard: https://store-boatbud.pierrebadra.me/
 
 ## Prerequisites
 - Visual Studio 2022 installed
