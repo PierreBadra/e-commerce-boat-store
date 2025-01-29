@@ -198,7 +198,7 @@ export default function OrderTable() {
   useEffect(() => {
     async function fetchProducts() {
       setLoading(true);
-      const response = await fetch("http://localhost:5202/api/Order");
+      const response = await fetch("https://api-boatbud.pierrebadra.me/api/Order");
       const data = await response.json();
       setOrders(data["$values"]);
       setLoading(false);

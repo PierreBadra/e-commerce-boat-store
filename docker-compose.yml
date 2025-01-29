@@ -7,9 +7,9 @@ services:
             - 5187:8080
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
-            - API_BASE_URL=http://webapi:5202
+            - API_BASE_URL=http://api:5202
             - DB_HOST=store-db
-            - DB_NAME=h60backend
+            - DB_NAME=pbadraH60A03Database
             - DB_SA_PASSWORD=password@123
         depends_on:
             - api
@@ -25,9 +25,9 @@ services:
             - 5057:8080
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
-            - API_BASE_URL=http://webapi:5202
+            - API_BASE_URL=http://api:5202
             - DB_HOST=store-db
-            - DB_NAME=h60backend
+            - DB_NAME=pbadraH60A03Database
             - DB_SA_PASSWORD=password@123
         depends_on:
             - api
@@ -39,7 +39,7 @@ services:
         build:
             context: ./pbadraH60A03/pbadraH60Services
             dockerfile: ./Dockerfile
-        container_name: webapi
+        container_name: api
         ports:
             - 5202:5202
         depends_on:
@@ -48,7 +48,7 @@ services:
             - ASPNETCORE_ENVIRONMENT=Production
             - ASPNETCORE_URLS=http://*:5202
             - DB_HOST=store-db
-            - DB_NAME=h60backend
+            - DB_NAME=pbadraH60A03Database
             - DB_SA_PASSWORD=password@123
         networks:
             - connect

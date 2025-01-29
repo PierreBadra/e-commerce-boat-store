@@ -206,7 +206,7 @@ export default function ProductTable() {
   React.useEffect(() => {
     async function fetchProducts() {
       setLoading(true);
-      const response = await fetch("http://localhost:5202/api/ManagerProducts");
+      const response = await fetch("https://api-boatbud.pierrebadra.me/api/ManagerProducts");
       const data = await response.json();
       setProducts(data["$values"]);
       setLoading(false);
@@ -223,7 +223,7 @@ export default function ProductTable() {
 
       try {
         const response = await fetch(
-          `http://localhost:5202/api/Products/ProductStock/${productId}`,
+          `https://api-boatbud.pierrebadra.me/api/Products/ProductStock/${productId}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -272,7 +272,7 @@ export default function ProductTable() {
 
       try {
         const response = await fetch(
-          `http://localhost:5202/api/Products/ProductBuyPrice/${productId}`,
+          `https://api-boatbud.pierrebadra.me/api/Products/ProductBuyPrice/${productId}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -319,7 +319,7 @@ export default function ProductTable() {
 
       try {
         const response = await fetch(
-          `http://localhost:5202/api/Products/ProductSellPrice/${productId}`,
+          `https://api-boatbud.pierrebadra.me/api/Products/ProductSellPrice/${productId}`,
           {
             headers: {
               "Content-Type": "application/json",

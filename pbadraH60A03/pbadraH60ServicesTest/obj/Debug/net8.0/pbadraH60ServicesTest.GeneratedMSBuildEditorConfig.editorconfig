@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = pbadraH60ServicesTest
-build_property.ProjectDir = /Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60ServicesTest/
+build_property.ProjectDir = /Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60ServicesTest/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60Customer/pbadraH60Customer.csproj": {}
+    "/Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60Customer/pbadraH60Customer.csproj": {}
   },
   "projects": {
-    "/Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60Customer/pbadraH60Customer.csproj": {
+    "/Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60Customer/pbadraH60Customer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60Customer/pbadraH60Customer.csproj",
+        "projectUniqueName": "/Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60Customer/pbadraH60Customer.csproj",
         "projectName": "pbadraH60Customer",
-        "projectPath": "/Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60Customer/pbadraH60Customer.csproj",
+        "projectPath": "/Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60Customer/pbadraH60Customer.csproj",
         "packagesPath": "/Users/pierrebadra/.nuget/packages/",
-        "outputPath": "/Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60Customer/obj/",
+        "outputPath": "/Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60Customer/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/pierrebadra/.nuget/NuGet/NuGet.Config"

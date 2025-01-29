@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "97dKe1aPPQE=",
+  "dgSpecHash": "urCAFl/lfBw=",
   "success": true,
-  "projectFilePath": "/Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60Services/pbadraH60Services.csproj",
+  "projectFilePath": "/Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60Services/pbadraH60Services.csproj",
   "expectedPackageFiles": [
     "/Users/pierrebadra/.nuget/packages/azure.core/1.35.0/azure.core.1.35.0.nupkg.sha512",
     "/Users/pierrebadra/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",

@@ -5169,11 +5169,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60Store/pbadraH60Store.csproj",
+      "projectUniqueName": "/Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60Store/pbadraH60Store.csproj",
       "projectName": "pbadraH60Store",
-      "projectPath": "/Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60Store/pbadraH60Store.csproj",
+      "projectPath": "/Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60Store/pbadraH60Store.csproj",
       "packagesPath": "/Users/pierrebadra/.nuget/packages/",
-      "outputPath": "/Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60Store/obj/",
+      "outputPath": "/Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60Store/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/pierrebadra/.nuget/NuGet/NuGet.Config"

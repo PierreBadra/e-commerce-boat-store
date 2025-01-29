@@ -9844,11 +9844,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60ServicesTest/pbadraH60ServicesTest.csproj",
+      "projectUniqueName": "/Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60ServicesTest/pbadraH60ServicesTest.csproj",
       "projectName": "pbadraH60ServicesTest",
-      "projectPath": "/Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60ServicesTest/pbadraH60ServicesTest.csproj",
+      "projectPath": "/Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60ServicesTest/pbadraH60ServicesTest.csproj",
       "packagesPath": "/Users/pierrebadra/.nuget/packages/",
-      "outputPath": "/Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60ServicesTest/obj/",
+      "outputPath": "/Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60ServicesTest/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/pierrebadra/.nuget/NuGet/NuGet.Config"
@@ -9863,8 +9863,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60Services/pbadraH60Services.csproj": {
-              "projectPath": "/Users/pierrebadra/Desktop/(H60) Web Programmig VI/Assignments/420-h60-hr-assignment-3-PierreBadra/pbadraH60A03/pbadraH60Services/pbadraH60Services.csproj"
+            "/Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60Services/pbadraH60Services.csproj": {
+              "projectPath": "/Users/pierrebadra/Desktop/e-commerce-boat-store/pbadraH60A03/pbadraH60Services/pbadraH60Services.csproj"
             }
           }
         }

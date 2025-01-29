@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("pbadraH60Services")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fbcdadc6a741a19b0e50eba85956d6f1415ab1cd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a2933bfdaf4bb046dd8b0ddc3f8f29878a749b1e")]
 [assembly: System.Reflection.AssemblyProductAttribute("pbadraH60Services")]
 [assembly: System.Reflection.AssemblyTitleAttribute("pbadraH60Services")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
