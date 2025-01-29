@@ -1,0 +1,196 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] | Boatbud</title>
+    <link rel="stylesheet" href="~/css/output.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/pbadraH60Customer.styles.css" asp-append-version="true"/>
+</head>
+<body class="h-screen antialiased">
+<header class="bg-transparent fixed z-10 w-full">
+    <nav class="bg-transparent mx-auto w-[90%] flex items-center justify-between py-8" aria-label="Global">
+        <div class="hidden lg:flex lg:gap-x-12">
+            <a asp-action="Index" asp-controller="Products" class="text-sm text-white leading-6">Boats</a>
+        </div>
+
+        <div class="absolute left-1/2 -translate-x-1/2 text-lg text-gray-900">
+            <a class="oleo-script-bold text-white text-3xl" asp-action="Index" asp-controller="Home">Boatbud</a>
+        </div>
+
+        <div class="flex lg:hidden">
+            <button id="menuButton" type="button" class="inline-flex items-center justify-center rounded-md text-gray-700">
+                <svg class="h-6 w-6 text-white" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+                </svg>
+            </button>
+        </div>
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+        <div class="relative text-left hidden lg:inline-block">
+            <div>
+                <button type="button" class="text-white" id="menu-button" aria-expanded="false" aria-haspopup="true">
+                    <i data-lucide="circle-user-round"></i>
+                </button>
+            </div>
+            <div id="dropdown" class="hidden transform opacity-0 scale-95 absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-500/10 rounded-md bg-black/30 backdrop-blur-sm shadow-lg ring-1 ring-gray-500/10 ring-offset-3 ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                <div class="py-1" role="none">
+                    <p class="block px-4 py-2 text-sm text-white truncate">
+                        <span>Signed in as</span>
+                        <br>
+                        @{
+                        var user = await UserManager.GetUserAsync(User);
+                        <span class="font-semibold">@user.Email.ToString()</span>
+                        }
+                    </p>
+                </div>
+                <div class="py-1" role="none">
+                    <a asp-area="Identity" asp-page="/Account/Manage/Index" class="block px-4 py-2 text-sm hover:bg-black/30 text-white" role="menuitem" tabindex="-1" id="menu-item-0">Manage</a>
+                    <a asp-action="Index" asp-controller="ShoppingCart" class="block px-4 py-2 text-sm hover:bg-black/30 text-white">My Cart</a>
+                    <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button id="logout" type="submit" class="w-full text-left block px-4 py-2 text-sm hover:bg-black/30 text-white">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        }
+        else
+        {
+        <div class="hidden lg:flex items-center gap-6">
+            <a asp-area="Identity" asp-page="/Account/Login" class="text-sm text-white leading-6">Log in</a>
+            <a asp-area="Identity" asp-page="/Account/Register" class="text-sm text-white leading-6">Sign up</a>
+        </div>
+        }
+    </nav>
+
+    <div id="mobileMenu" class="lg:hidden fixed inset-0 z-10 w-full overflow-y-auto bg-black/30 backdrop-blur-sm px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 transform -translate-x-full transition-transform duration-300" role="dialog" aria-modal="true">
+        <div class="flex items-center justify-between">
+            <a class="oleo-script-bold text-white text-3xl" asp-action="Index" asp-controller="Home">Boatbud</a>
+            <button id="closeMenu" type="button" class="-m-2.5 rounded-md p-2.5 text-white">
+                <span class="sr-only">Close menu</span>
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="h-[92%] mt-6 flow-root">
+            <div class="h-full flex flex-col justify-between -my-6 divide-y divide-gray-500/10">
+                <div class="space-y-2 py-6">
+                    <div class="py-6">
+                        <a asp-action="Index" asp-controller="Products" class="-mx-3 block rounded-lg px-3 py-2 text-sm text-white leading-6 hover:bg-black/30">Boats</a>
+                    </div>
+                </div>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                <div id="dropdown" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                    <div class="mt-2" role="none">
+                        <p class="block py-2 text-sm text-white">
+                            <span>Signed in as</span>
+                            <br>
+                            @{
+                            var user = await UserManager.GetUserAsync(User);
+                            <span class="font-semibold">@user.Email.ToString()</span>
+                            }
+                        </p>
+                    </div>
+                    <div class="py-1" role="none">
+                        <a asp-area="Identity" asp-page="/Account/Manage/Index" class="-mx-3 block rounded-lg px-3 py-2 text-sm text-white leading-6 hover:bg-black/30" role="menuitem" tabindex="-1" id="menu-item-0">Manage</a>
+                        <a asp-action="Index" asp-controller="ShoppingCart" class="-mx-3 block rounded-lg px-3 py-2 text-sm text-white leading-6 hover:bg-black/30">My Cart</a>
+                        <a href="@Url.Action("Index", "Home", new { area = "" })" class="-mx-3 block rounded-lg px-3 py-2 text-sm text-white leading-6 hover:bg-black/30" id="logoutLink" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
+                            Logout
+                        </a>
+
+                        <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" method="post" style="display: none;">
+                        </form>
+                    </div>
+                </div>
+                }
+                else
+                {
+                <div class="pt-2" id="dropdown" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                    <a asp-area="Identity" asp-page="/Account/Login" class="-mx-3 block rounded-lg px-3 py-2 text-sm text-white leading-6 hover:bg-black/30">Log in</a>
+                    <a asp-area="Identity" asp-page="/Account/Register" class="-mx-3 block rounded-lg px-3 py-2 text-sm text-white leading-6 hover:bg-black/30">Sign up</a>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</header>
+<div id="container" class="h-full">
+    <main role="main" class="h-full overflow-y-hidden">
+        @RenderBody()
+    </main>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true" type="module"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+    document.addEventListener("DOMContentLoaded", function() {
+        const menuButton = document.getElementById("menuButton");
+        const closeMenuButton = document.getElementById("closeMenu");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const body = document.getElementById("container");
+        const menu_button = document.getElementById('menu-button');
+        const dropdownMenu = document.getElementById("dropdown");
+
+        if (menu_button) {
+            menu_button.setAttribute('aria-expanded', 'false');
+            dropdownMenu.classList.add('hidden', 'transform', 'opacity-0', 'scale-95');
+
+            menu_button.addEventListener('click', function() {
+                const isExpanded = menu_button.getAttribute('aria-expanded') === 'true';
+                menu_button.setAttribute('aria-expanded', !isExpanded);
+
+                if (isExpanded) {
+                    dropdownMenu.classList.add('transform', 'opacity-0', 'scale-95');
+                    dropdownMenu.classList.remove('opacity-100', 'scale-100');
+                    setTimeout(() => {
+                        dropdownMenu.classList.add('hidden');
+                    }, 100);
+                } else {
+                    dropdownMenu.classList.remove('hidden');
+                    requestAnimationFrame(() => {
+                        dropdownMenu.classList.add('transition', 'ease-out', 'duration-100');
+                        dropdownMenu.classList.remove('transform', 'opacity-0', 'scale-95');
+                        dropdownMenu.classList.add('opacity-100', 'scale-100');
+                    });
+                }
+            });
+
+            document.addEventListener('click', function(event) {
+                if (!menu_button.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    menu_button.setAttribute('aria-expanded', 'false');
+                    dropdownMenu.classList.add('transform', 'opacity-0', 'scale-95');
+                    dropdownMenu.classList.remove('opacity-100', 'scale-100');
+                    setTimeout(() => {
+                        dropdownMenu.classList.add('hidden');
+                    }, 100);
+                }
+            });
+        }
+
+        body.addEventListener("click", function () {
+            if (!mobileMenu.classList.contains("-translate-x-full"))
+                mobileMenu.classList.add("-translate-x-full");
+        });
+
+        menuButton.addEventListener("click", function() {
+            mobileMenu.classList.toggle("-translate-x-full");
+        });
+
+        closeMenuButton.addEventListener("click", function() {
+            mobileMenu.classList.add("-translate-x-full");
+        });
+    });
+</script>
+@await Component.InvokeAsync("Notyf")
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

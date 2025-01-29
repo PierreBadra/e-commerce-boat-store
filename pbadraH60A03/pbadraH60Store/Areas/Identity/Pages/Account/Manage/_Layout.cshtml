@@ -1,0 +1,21 @@
+﻿@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
+    {
+        Layout = parentLayout.ToString();
+    }
+    else
+    {
+        Layout = "_Layout.cshtml";
+    }
+}
+
+<div class="col-lg-6 col-md-8 col-sm-10 mx-auto">
+    <partial name="_ManageNav"/>
+    <div class="container">
+        @RenderBody()
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

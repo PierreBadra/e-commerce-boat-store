@@ -1,0 +1,86 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<div class="flex min-h-full flex-col justify-center py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h1 class="mt-10 text-center tracking-tight text-[#00222B] text-3xl font-bold">Profile</h1>
+    </div>
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <partial name="_StatusMessage" for="StatusMessage"/>
+        <form id="profile-form" class="space-y-6" method="POST">
+            <input class="hidden" type="hidden" asp-for="Input.UserId">
+            @if (User.IsInRole("Customer"))
+            {
+                <input type="hidden" asp-for="Input.CustomerId">
+                <div>
+                    <label asp-for="Input.FirstName" class="block text-sm/6 font-medium text-gray-900">First Name</label>
+                    <div class="mt-2">
+                        <input asp-for="Input.FirstName" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset sm:text-sm/6 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" placeholder="Please enter your phone number.">
+                        <span asp-validation-for="Input.FirstName" class="text-red-600 mt-1 text-sm"></span>
+                    </div>
+                </div>
+
+                <div>
+                    <label asp-for="Input.LastName" class="block text-sm/6 font-medium text-gray-900">Last Name</label>
+                    <div class="mt-2">
+                        <input asp-for="Input.LastName" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset sm:text-sm/6 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" placeholder="Please enter your phone number.">
+                        <span asp-validation-for="Input.LastName" class="text-red-600 mt-1 text-sm"></span>
+                    </div>
+                </div>
+            }
+
+            <div>
+                <label asp-for="Input.Email" class="block text-sm/6 font-medium text-gray-900"></label>
+                <div class="mt-2">
+                    <input asp-for="Input.Email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset sm:text-sm/6 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" placeholder="Please enter your phone number.">
+                    <span asp-validation-for="Input.Email" class="text-red-600 mt-1 text-sm"></span>
+                </div>
+            </div>
+
+            <div>
+                <label asp-for="Input.PhoneNumber" class="block text-sm/6 font-medium text-gray-900"></label>
+                <div class="mt-2">
+                    <input asp-for="Input.PhoneNumber" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset sm:text-sm/6 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" placeholder="Please enter your phone number.">
+                    <span asp-validation-for="Input.PhoneNumber" class="text-red-600 mt-1 text-sm"></span>
+                </div>
+            </div>
+
+            @if (User.IsInRole("Customer"))
+            {
+                <div>
+                    <label asp-for="Input.Province" class="block text-sm/6 font-medium text-gray-900"></label>
+                    <div class="mt-2">
+                        <select asp-for="Input.Province" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                            <option value="">--Select a Province--</option>
+                            <option value="QC">Quebec</option>
+                            <option value="ON">Ontario</option>
+                            <option value="NB">New Brunswick</option>
+                            <option value="MB">Manitoba</option>
+                        </select>
+                        <span asp-validation-for="Input.Province" class="text-red-600 mt-1 text-sm"></span>
+                    </div>
+                </div>
+
+                <div>
+                    <label asp-for="Input.CreditCard" class="block text-sm/6 font-medium text-gray-900">Credit Card</label>
+                    <div class="mt-2">
+                        <input asp-for="Input.CreditCard" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset sm:text-sm/6 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" placeholder="Please enter your phone number.">
+                        <span asp-validation-for="Input.CreditCard" class="text-red-600 mt-1 text-sm"></span>
+                    </div>
+                </div>
+            }
+
+            <div>
+                <button id="update-profile-button" type="submit" class="flex w-full justify-center bg-[#00171D] px-20 py-2 rounded-md font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 oleo-script-bold text-[18.84px] hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

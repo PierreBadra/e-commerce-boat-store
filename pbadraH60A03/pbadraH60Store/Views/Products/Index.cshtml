@@ -1,0 +1,102 @@
+﻿@model IEnumerable<pbadraH60A01.Models.Product>
+@{
+    ViewData["Title"] = "Boats | Boatbud";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="success-alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<h2>All Boats</h2>
+@if (Model.Any())
+{
+    <p class="text-muted">@Model.Count() @(Model.Count() > 1 ? "Results" : "Result")</p>
+}
+
+<table style="table-layout: fixed;" id="sortableTable" class="shadow-sm table overflow-hidden rounded-3">
+    <thead class="bg-primary text-white">
+        <tr>
+            <th style="width: 40%" class="text-truncate">Boat Name</th>
+            <th style="width: 40%" class="text-truncate text-end">Stock</th>
+            <th style="width: 40%" class="text-truncate text-end">Sell Price</th>
+            <th style="width: 40%" class="text-truncate text-end">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            string currentCategory = null;
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                var product = Model.ElementAt(i);
+                var rowClass = i % 2 == 0 ? "table-light" : "";
+                var modalId = $"deleteModal_{product.ProductId}";
+
+                if (currentCategory != product.ProdCat.ProdCat)
+                {
+                    currentCategory = product.ProdCat.ProdCat;
+
+                    <tr class="text-white fw-bold">
+                        <td class="category-name" colspan="4">@currentCategory</td>
+                    </tr>
+                }
+
+                <tr class="@rowClass">
+                    <td class="text-truncate border-end"><a class="text-black product-name" asp-action="Details" asp-controller="Products" asp-route-id="@product.ProductId" title="See more details about @product.Description">@product.Description</a></td>
+                    <td class="text-truncate text-end border-end">
+                        <p class="d-inline m-0">@product.Stock</p>
+                        <a asp-controller="Products" asp-action="EditStock" asp-route-id="@product.ProductId" title="Edit stock for @product.Description"><i class='bx bxs-edit'></i></a>
+                    </td>
+                    <td class="text-truncate text-end border-end">
+                        <p class="d-inline m-0">@($"{product.SellPrice:C}")</p>
+                        @if (User.IsInRole("Manager"))
+                        {
+                            <a asp-controller="Products" asp-action="EditSellPrice" asp-route-id="@product.ProductId" title="Edit the sell price for @product.Description"><i class='bx bxs-edit'></i></a>
+                        }
+                    </td>
+                    <td class="text-truncate text-end">
+                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.ProductId" title="Edit @product.Description"><i class='bx bxs-edit'></i></a>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#@modalId" title="Delete @product.Description Category" class="text-danger"><i class='bx bx-trash'></i></a>
+                    </td>
+                </tr>
+
+                <div class="modal fade" id="@modalId" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete @product.Description?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete the @product.Description product?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <form asp-action="Delete" asp-controller="Products" asp-route-id="@product.ProductId">
+                                    <button type="submit" class="btn btn-primary">Remove</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <tr><td class="text-center" colspan="6">No Boats Available.</td></tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Products" asp-action="Create" class="btn btn-primary">Add a Boat</a>

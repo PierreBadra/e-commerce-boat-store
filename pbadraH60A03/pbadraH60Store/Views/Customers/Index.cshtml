@@ -1,0 +1,109 @@
+﻿@model IEnumerable<pbadraH60A01.Models.Customer>
+@{
+    ViewData["Title"] = "Customers | Boatbud";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="success-alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<h2>All Customers</h2>
+<form id="searchCustomerForm" class="d-flex mb-4" method="get">
+    <div class="input-group">
+        <input
+            id="search-input"
+            type="text"
+            class="form-control search-input border-end-0 rounded-start"
+            placeholder="Search by name, phone, or email">
+        <button
+            id="search-button"
+            class="btn search-button rounded-end d-flex align-items-center justify-content-center"
+            type="submit">
+            <i class="bx bx-search text-white fs-4"></i>
+        </button>
+    </div>
+</form>
+
+
+
+@if (Model.Any())
+{
+    <p class="text-muted" id="result-count">@Model.Count() @(Model.Count() > 1 ? "Results" : "Result")</p>
+}
+<table class="shadow-sm table overflow-hidden rounded-3" id="customer-table">
+    <thead class="bg-primary text-white">
+    <tr>
+        <th class="d-none d-md-table-cell">Name</th>
+        <th class="d-none d-md-table-cell">Phone Number</th>
+        <th>Email</th>
+        <th class="d-none d-lg-table-cell">Province</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model.Any())
+    {
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            var customer = Model.ElementAt(i);
+            var rowClass = i % 2 == 0 ? "table-light" : "";
+            var modalId = $"deleteModal_{customer.CustomerId}";
+
+            <tr class="@rowClass">
+                <td class="border-end d-none d-md-table-cell">@customer.FirstName @customer.LastName</td>
+                <td class="border-end d-none d-md-table-cell">@customer.PhoneNumber</td>
+                <td class="border-end">@customer.Email</td>
+                <td class="border-end d-none d-lg-table-cell">@customer.Province</td>
+                <td>
+                    <a asp-controller="Customers" asp-action="Edit" asp-route-id="@customer.CustomerId" title="Edit @customer.FirstName @customer.LastName"><i class='bx bxs-edit'></i></a>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#@modalId" title="Delete @customer.FirstName @customer.LastName" class="text-danger"><i class='bx bx-trash'></i></a>
+                </td>
+            </tr>
+
+
+            <div class="modal fade" id="@modalId" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                                Delete @(string.IsNullOrEmpty(customer.LastName) || string.IsNullOrEmpty(customer.FirstName) ? "Customer's" : customer.FirstName + " " + customer.LastName + "'s Customer") Account?
+                            </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                Are you sure you want to delete @(string.IsNullOrEmpty(customer.LastName) || string.IsNullOrEmpty(customer.FirstName) ? "the customer's" : customer.FirstName + " " + customer.LastName + "'s customer") account?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <form asp-controller="Customers" asp-action="Delete" asp-route-id="@customer.CustomerId">
+                                <button type="submit" class="btn btn-primary">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <tr>
+            <td class="text-center" colspan="5">No Customers Available.</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<a asp-controller="Customers" asp-action="Create" class="btn btn-primary">Add a Customer</a>

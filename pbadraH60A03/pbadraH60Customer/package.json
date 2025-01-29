@@ -1,0 +1,21 @@
+{
+  "name": "pbadrah60customer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "tailwind:build": "npx tailwindcss -i ./wwwroot/css/input.css -o ./wwwroot/css/output.css",
+    "tailwind:watch": "npx tailwindcss -i ./wwwroot/css/input.css -o ./wwwroot/css/output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.9",
+    "tailwindcss": "^3.4.14"
+  },
+  "dependencies": {
+    "flowbite": "^2.5.2",
+    "lucide": "^0.453.0"
+  }
+}

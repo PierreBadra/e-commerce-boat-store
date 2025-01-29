@@ -1,0 +1,58 @@
+@model pbadraH60Customer.DTO.ProductCustomerDisplayDTO
+@{
+    ViewData["Title"] = $"{Model.Description}'s Details";
+    Layout = "_Layout";
+}
+
+
+<div>
+    <a class="text-gray-500 mb-10 flex items-center justify-start gap-2"  asp-action="Index" asp-controller="Products"><i data-lucide="arrow-left"></i> Back to Products</a>
+    <div class="flex flex-wrap -mx-4">
+        <div class="w-full md:w-1/2 px-4">
+            <img src="@(Model.ImageFile != null ? $"data:image/jpeg;base64,{Convert.ToBase64String(Model.ImageFile)}" : Url.Content("~/images/Default Image.svg"))" alt="Product Image"
+                 class="w-full h-auto rounded-lg shadow-md mb-4" id="mainImage">
+        </div>
+
+        <form asp-action="Details" asp-controller="Products" class="w-full md:w-1/2 px-4 flex flex-col justify-center gap-3.5" id="add-to-cart-form">
+            <div>
+                <input type="hidden" name="productId" value="@Model.ProductId">
+                <input type="hidden" name="customerId" value="@(User.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value)">
+                <input type="hidden" name="price" value="@Model.SellPrice">
+                <input type="hidden" name="cartId" value="@ViewData["shoppingCartId"]">
+                <h2 class="flex items-center justify-between flex-wrap-reverse gap-3.5 text-3xl text-gray-900 font-bold md:justify-start">
+                    @Model.Description <span class="rounded-full bg-gray-200/80 px-3 py-1 text-sm font-medium text-gray-700">@Model.categoryName</span>
+                </h2>
+                <p class="text-gray-600 mb-4">@Model.Manufacturer</p>
+                <div class="flex items-center justify-start mb-4">
+                    <span class="text-2xl font-bold text-[#929200] mr-2">@string.Format("${0:N0}", Model.SellPrice)</span>
+                    <span class="text-gray-600 line-through">@string.Format("${0:N0}", Model.SellPrice * decimal.Parse(1.20.ToString()))</span>
+                </div>
+                <div class="mb-6">
+                    <div class="flex items-center justify-start gap-3.5">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-900">Quantity</h3>
+                        <span class="flex items-center gap-1 mb-2 @(Model.Stock >= 5 ? "text-green-500" : Model.Stock >= 1 ? "text-yellow-500" : "text-red-500")">
+                            @Html.Raw(Model.Stock >= 5 ? "<i data-lucide='check'></i> In Stock" : Model.Stock >= 1 ? "<i data-lucide='circle-alert'></i> Low in Stock" : "<i data-lucide='x'></i> Out of Stock")
+                        </span>
+                    </div>
+
+                    <input @(Model.Stock == 0 ? "disabled" : "") type="number" id="quantity" name="quantity" min="1" value="1"
+                                                                 class="w-16 text-center rounded-md border-gray-300 shadow-sm @(Model.Stock == 0 ? "opacity-50 cursor-not-allowed" : "focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50")">
+                </div>
+            </div>
+
+            <div class="flex flex-col justify-between gap-2">
+                <button @(Model.Stock == 0 ? "disabled" : "") type="submit"
+                                                              class="justify-center w-full bg-gray-900 flex gap-2 items-center text-gray-200 py-2 rounded-md @(Model.Stock == 0? "opacity-50 cursor-not-allowed" : "hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2")">
+                    <i data-lucide="shopping-cart" class="h-5 w-5"></i>
+                    <span class="">Add to Cart</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function changeImage(src) {
+        document.getElementById('mainImage').src = src;
+    }
+</script>

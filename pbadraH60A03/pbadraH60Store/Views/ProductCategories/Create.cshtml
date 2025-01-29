@@ -1,0 +1,25 @@
+﻿@model pbadraH60A01.Models.ProductCategory
+@{
+    ViewData["Title"] = "Add Boat Category | Boatbud";
+}
+<h2 class="text-center">Add a Boat Category</h2>
+<div class="col-lg-6 col-md-8 col-sm-10 mx-auto">
+        <form asp-controller="ProductCategories" asp-action="Create" class="shadow-sm overflow-hidden rounded-3 p-4 bg-light">
+            <div class="form-floating mb-3">
+                <input asp-for="ProdCat"
+                       type="text"
+                       class="form-control @(ViewData.ModelState["ProdCat"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                       id="floatingInput"
+                       placeholder="Category Name">
+                <label asp-for="ProdCat" for="floatingInput"></label>
+                <div class="invalid-feedback">
+                    @Html.ValidationMessageFor(model => model.ProdCat)
+                </div>
+            </div>
+        <div class="d-flex d-md-flex align-items-center justify-content-end gap-2 flex-column flex-md-row">
+            <input type="submit" value="Add Category" class="btn btn-primary">
+            <a type="button" asp-action="Index" asp-controller="ProductCategories" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+        </form>
+   </div>
+

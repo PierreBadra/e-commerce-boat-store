@@ -1,0 +1,87 @@
+﻿@model pbadraH60A01.Models.Product
+@{
+    ViewData["Title"] = $"{Model.Description} Details | Boatbud";
+}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">@Model.Description's Details</h2>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <div class="card shadow-sm border-light rounded-3 bg-light">
+                <div class="card-body d-flex flex-column gap-1">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <span class="badge bg-primary">@Model.ProdCat.ProdCat</span>
+                        <div>
+                            <a asp-controller="Products" asp-action="Edit" asp-route-id="@Model.ProductId" title="Edit @Model.Description">
+                                <i class='bx bxs-edit'></i>
+                            </a>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#modal" title="Delete @Model.Description Category" class="text-danger">
+                                <i class='bx bx-trash'></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-4">
+                        <div>
+                            <span class="text-secondary">@Model.Manufacturer</span>
+                            <h4 class="m-0 card-text">
+                                <strong>@Model.Description</strong>
+                            </h4>
+                        </div>
+
+                        @if (Model.ImageFile != null)
+                        {
+                            <img style="object-fit: cover;" class="w-100 border-4 border-primary" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.ImageFile as byte[]))"/>
+                        }
+                    </div>
+
+                    <div class="d-flex flex-column align-items-start justify-content-center text-secondary">
+                        <span class="text-danger d-flex align-items-center justify-content-center">
+                            @if (User.IsInRole("Manager"))
+                            {
+                                <a asp-controller="Products" asp-action="EditBuyPrice" asp-route-id="@Model.ProductId" title="Edit the buy price for @Model.Description">
+                                    <i class='bx bxs-edit'></i>
+                                </a>
+                            }
+                            Purchase Price: @($"{Model.BuyPrice:C}")
+                        </span>
+                        <span class="text-success d-flex align-items-center justify-content-center">
+                            @if (User.IsInRole("Manager"))
+                            {
+                                <a asp-controller="Products" asp-action="EditSellPrice" asp-route-id="@Model.ProductId" title="Edit the sell price for @Model.Description">
+                                    <i class='bx bxs-edit'></i>
+                                </a>
+                            }
+                            Sale Price: @($"{Model.SellPrice:C}")
+                        </span>
+                        <span class="d-flex align-items-center justify-content-center">
+                            <a asp-controller="Products" asp-action="EditStock" asp-route-id="@Model.ProductId" title="Edit @Model.Description's stock">
+                                <i class='bx bxs-edit'></i>
+                            </a> @Model.Stock in stock
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex d-md-flex align-items-center justify-content-end gap-2 flex-column flex-md-row mt-3">
+                <a type="button" asp-action="Index" asp-controller="Products" class="btn btn-outline-secondary">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete @Model.Description?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the @Model.Description product?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form asp-action="Delete" asp-controller="Products" asp-route-id="@Model.ProductId">
+                    <button type="submit" class="btn btn-primary">Remove</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

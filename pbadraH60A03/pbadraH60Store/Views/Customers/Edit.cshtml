@@ -1,0 +1,93 @@
+﻿@model pbadraH60A01.Models.Customer
+@{
+    ViewData["Title"] = $"Edit Customer Account | Boatbud";
+}
+<h2 class="text-center">Edit Customer's Account</h2>
+
+<div class="col-lg-6 col-md-8 col-sm-10 mx-auto">
+    <form asp-controller="Customers" asp-action="Edit" class="shadow-sm overflow-hidden rounded-3 p-4 bg-light">
+        <div class="form-floating mb-3">
+            <input type="hidden" asp-for="CustomerId" value="@Model.CustomerId">
+            <input type="hidden" asp-for="UserId" value="@Model.UserId">
+            <input asp-for="FirstName"
+                   type="text"
+                   class="form-control @(ViewData.ModelState["FirstName"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                   id="floatingInput1"
+                   placeholder="First Name">
+            <label asp-for="FirstName" for="floatingInput1">First Name</label>
+            <div class="invalid-feedback">
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="LastName"
+                   type="text"
+                   class="form-control @(ViewData.ModelState["LastName"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                   id="floatingInput2"
+                   placeholder="LastName">
+            <label asp-for="LastName" for="floatingInput2">Last Name</label>
+            <div class="invalid-feedback">
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="Email"
+                   class="form-control @(ViewData.ModelState["Email"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                   id="floatingInput"
+                   placeholder="Email">
+            <label asp-for="Email" for="floatingInput"></label>
+            <div class="invalid-feedback">
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="PhoneNumber"
+                   type="text"
+                   class="form-control @(ViewData.ModelState["PhoneNumber"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                   id="floatingInput"
+                   placeholder="Phone Number">
+            <label asp-for="PhoneNumber" for="floatingInput">Phone Number</label>
+            <div class="invalid-feedback">
+                @Html.ValidationMessageFor(model => model.PhoneNumber)
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <select asp-for="Province" class="form-select @(ViewData.ModelState["Province"]?.Errors.Count > 0 ? "is-invalid" : "")">
+                <option value="">--Select a Province--</option>
+                @if (ViewData["Provinces"] != null)
+                {
+                    var provinces = ViewData["Provinces"] as Dictionary<string, string>;
+                    foreach (var province in provinces)
+                    {
+                        <option value="@province.Key">@province.Value</option>
+                    }
+                }
+            </select>
+            <label asp-for="Province">Province</label>
+            <div class="invalid-feedback">
+                @Html.ValidationMessageFor(model => model.Province)
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="CreditCard"
+                   type="text"
+                   class="form-control @(ViewData.ModelState["CreditCard"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                   id="floatingInput"
+                   placeholder="Credit Card">
+            <label asp-for="CreditCard" for="floatingInput">Credit Card</label>
+            <div class="invalid-feedback">
+                @Html.ValidationMessageFor(model => model.CreditCard)
+            </div>
+        </div>
+
+        <div class="d-flex d-md-flex align-items-center justify-content-end gap-2 flex-column flex-md-row">
+            <input type="submit" value="Update Customer" class="btn btn-primary">
+            <a type="button" asp-action="Index" asp-controller="Customers" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

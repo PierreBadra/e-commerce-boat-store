@@ -1,0 +1,30 @@
+﻿@page
+@model PersonalDataModel
+@{
+    ViewData["Title"] = "Personal Data";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+
+<div class="flex min-h-full flex-col justify-center py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h1 class="mt-10 text-center tracking-tight text-[#00222B] text-3xl font-bold">Personal Data</h1>
+    </div>
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm space-y-6">
+        <p class="text-center">Your account contains personal data that you have given us. This page allows you to download or delete that data.</p>
+
+        <i class="w-full h-28 text-center text-amber-400" data-lucide="triangle-alert"></i>
+        <p class="text-center">
+            <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
+        </p>
+        <form id="download-data" asp-page="DownloadPersonalData" method="post">
+            <button class="flex w-full justify-center bg-[#00171D] px-20 py-2 rounded-md font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 oleo-script-bold text-[18.84px] hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" type="submit">Download</button>
+        </form>
+        <p>
+            <a id="delete" class="justify-center w-full bg-gray-200 flex gap-2 items-center text-gray-800 py-2 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 oleo-script-bold text-[18.84px] focus:ring-gray-500 focus:ring-offset-2" asp-page="DeletePersonalData" class="btn btn-danger">Delete</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

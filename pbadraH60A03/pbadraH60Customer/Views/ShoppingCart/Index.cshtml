@@ -1,0 +1,64 @@
+@model IEnumerable<pbadraH60Customer.DTO.CartItemDTO>
+@{
+    ViewData["Title"] = "My Cart";
+    Layout = "_Layout";
+    decimal subtotal = 0;
+}
+
+<div class="">
+    <a class="text-gray-500 mb-10 flex items-center justify-start gap-2" asp-action="Index" asp-controller="Products"><i data-lucide="arrow-left"></i> Back to Shopping</a>
+    <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+        <h1 class="text-3xl font-bold text-gray-900">My Cart</h1>
+    </div>
+    <div class="mt-8">
+        @if (Model.Count() > 0)
+        {
+            @foreach (var cartItem in Model)
+            {
+                var itemTotal = cartItem.Quantity * cartItem.Price;
+                subtotal += itemTotal;
+                <div id="cart-item-@cartItem.CartItemId" class="relative flex flex-col sm:flex-row flex-wrap gap-6 border-b py-4">
+                    <div class="">
+                        <img src="@(cartItem.Product.ImageFile != null ? $"data:image/jpeg;base64,{Convert.ToBase64String(cartItem.Product.ImageFile)}" : Url.Content("~/images/Default Image.svg"))" alt="Product image" class="rounded-lg w-full h-full md:w-32 md:h-32 object-cover">
+                    </div>
+                    <div class="">
+                        <h2 class="flex items-center justify-between flex-wrap-reverse gap-3.5 text-gray-900 md:justify-start text-lg font-bold">
+                            @cartItem.Product.Description <span class="rounded-full bg-gray-200/80 px-3 py-1 text-sm font-medium text-gray-700">@cartItem.Product.categoryName</span>
+                        </h2>
+                        <p class="text-gray-600 text-sm">@cartItem.Product.Manufacturer</p>
+                        <div class="mt-4 flex items-center">
+                            <span class="mr-2 text-gray-600">Quantity:</span>
+                            <div class="flex items-center" data-item-quantity-id="@cartItem.CartItemId">
+                                <button data-decrement-button="@cartItem.CartItemId" class="bg-gray-200 rounded-l-lg px-2 py-1">-</button>
+                                <span data-quantity-value="@cartItem.Quantity" class="mx-2 text-gray-600">@cartItem.Quantity</span>
+                                <button data-increment-button="@cartItem.CartItemId" class="bg-gray-200 rounded-r-lg px-2 py-1">+</button>
+                                <input type="hidden" class="hidden" name="cartId" value="@cartItem.CartId">
+                                <input type="hidden" class="hidden" name="productId" value="@cartItem.ProductId">
+                                <input type="hidden" class="hidden" name="price" value="@cartItem.Price">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sm:ml-auto flex flex-row items-center justify-between  sm:flex-col sm:justify-between sm:items-end">
+                        <i data-item-id="@cartItem.CartItemId" class="w-5 h-5 text-gray-500 hover:text-gray-600" data-lucide="trash"></i>
+                        <span class="font-bold item-total-price">@string.Format("${0:N0}", cartItem.Price * cartItem.Quantity)</span>
+                    </div>
+                </div>
+            }
+        }
+
+        <h3 class="empty-cart-message text-center sm:text-left text-xl text-gray-500" style="display: @(Model.Count() > 0 ? "none" : "block")">Your cart is empty</h3>
+    </div>
+    @if (Model.Count() > 0)
+    {
+        <div class="checkout-container flex gap-6 flex-col-reverse sm:flex-row items-end sm:items-center justify-between flex-wrap mt-8">
+            <a asp-action="Checkout" asp-controller="ShoppingCart" class="justify-center w-full sm:w-32 bg-gray-900 flex gap-2 items-center text-gray-200 py-2 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                Checkout
+            </a>
+            <div>
+                <span class="text-gray-600 mr-4">Subtotal:</span>
+                <span class="text-xl font-bold cart-subtotal">@string.Format("${0:N0}", subtotal)</span>
+            </div>
+        </div>
+    }
+</div>
+<script type="module" src="~/js/cartItem.js"></script>

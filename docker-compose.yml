@@ -1,0 +1,79 @@
+services:
+    store:
+        build:
+            context: ./pbadraH60A03/pbadraH60Store
+            dockerfile: ./Dockerfile
+        ports:
+            - 5187:8080
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Production
+            - API_BASE_URL=http://webapi:5202
+            - DB_HOST=store-db
+            - DB_NAME=h60backend
+            - DB_SA_PASSWORD=password@123
+        depends_on:
+            - api
+            - store-db
+        networks:
+            - connect
+
+    customer:
+        build:
+            context: ./pbadraH60A03/pbadraH60Customer
+            dockerfile: ./Dockerfile
+        ports:
+            - 5057:8080
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Production
+            - API_BASE_URL=http://webapi:5202
+            - DB_HOST=store-db
+            - DB_NAME=h60backend
+            - DB_SA_PASSWORD=password@123
+        depends_on:
+            - api
+            - store-db
+        networks:
+            - connect
+
+    api:
+        build:
+            context: ./pbadraH60A03/pbadraH60Services
+            dockerfile: ./Dockerfile
+        container_name: webapi
+        ports:
+            - 5202:5202
+        depends_on:
+            - store-db
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=http://*:5202
+            - DB_HOST=store-db
+            - DB_NAME=h60backend
+            - DB_SA_PASSWORD=password@123
+        networks:
+            - connect
+
+    store-db:
+        container_name: store-db
+        image: mcr.microsoft.com/azure-sql-edge:latest
+        ports:
+            - 5119:1433
+        environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=password@123
+        networks:
+            - connect
+
+    manager:
+        build: 
+            context: ./pbadrah60manager
+            dockerfile: ./Dockerfile
+        ports:
+            - 3000:3000
+        depends_on:
+            - api
+        networks:
+            - connect
+
+networks:
+    connect:

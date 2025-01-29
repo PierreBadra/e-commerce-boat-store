@@ -1,0 +1,153 @@
+@model IEnumerable<pbadraH60Customer.DTO.ProductCustomerDisplayDTO>
+
+@{
+    ViewData["Title"] = "Boats";
+    Layout = "_Layout";
+}
+
+<div class="mx-auto">
+    
+    <div class="flex flex-col space-y-6 mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Boats</h1>
+        
+        <div class="grid grid-cols-responsive gap-10">
+            <div>
+                <h2 class="text-xl font-semibold text-gray-900">All Products</h2>
+                <p id="resultsCount" class="text-sm text-gray-500">@Model.Count() @(Model.Count() > 1 || Model.Count() == 0 ? "Results" : "Result")</p>
+            </div>
+            
+            <form id="searchForm" method="get" class="flex items-stretch justify-center">
+                <input
+                    id="searchInput"
+                    type="text" 
+                    placeholder="Search by boat name, category..." 
+                    class="w-full pl-4 pr-10 py-2 shadow-[0_0px_3px_2px_rgba(0,0,0,0.1)] border-none focus:outline-none focus:ring-0 rounded-l-lg"
+                />
+                <button id="searchBtn" class="flex items-center rounded-r-lg justify-center w-[50px] bg-gray-900 shadow-[0_0px_3px_2px_rgba(0,0,0,0.1)]">
+                    <i data-lucide="search" class="h-5 w-5 text-white"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10 w-full m-auto mb-8" id="results">
+        @foreach (var product in Model)
+        {
+            <a asp-action="Details" asp-controller="Products" asp-route-id="@product.ProductId" class="w-full overflow-hidden rounded-lg bg-white shadow-md">
+                <div class="relative">
+                    <img loading="lazy"
+                         src="@(product.ImageFile != null ? $"data:image/jpeg;base64,{Convert.ToBase64String(product.ImageFile)}" : Url.Content("~/images/Default Image.svg"))"
+                         alt="@product.Manufacturer"
+                         class="h-36 w-full object-cover"
+                    />
+                    <div class="absolute right-3 top-3 rounded-full bg-gray-200/80 px-3 py-1 text-sm font-medium text-gray-700">
+                        @product.categoryName
+                    </div>
+                </div>
+
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-gray-900 truncate">@product.Description</h3>
+
+                    <p class="text-sm text-gray-500">@product.Manufacturer</p>
+
+                    <div class="mt-4 flex items-center justify-end">
+                        <span class="text-lg font-bold text-[#929200]">@string.Format("${0:N0}", product.SellPrice)</span>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let serachBtn = document.getElementById("searchBtn");
+        let searchForm = document.getElementById("searchForm");
+        searchForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            let endpoint = `http://localhost:5202/api/CustomerProducts?search=${document.getElementById("searchInput").value}`
+            let jsonData = await fetchData(endpoint);
+            let results = document.getElementById('results');
+            let resultsCount = document.getElementById('resultsCount');
+
+            resultsCount.innerHTML = `<p class="text-sm text-gray-500">${jsonData.$values.length} ${jsonData.$values.length > 1 || jsonData.$values.length == 0? "Results" : "Result"}</p>`;
+            results.innerHTML = '';
+
+            if (jsonData.$values.length > 0) {
+                jsonData.$values.forEach(product => {
+                    results.innerHTML += `
+                    <a href="Products/Details/${product.productId}" class="w-full overflow-hidden rounded-lg bg-white shadow-md">
+                        <div class="relative">
+                            <img
+                                src="${product.imageFile ? `data:image/jpeg;base64,${product.imageFile}` : '/images/Default Image.svg'}"
+                                alt="${product.manufacturer}"
+                                class="h-36 w-full object-cover"
+                            />
+                            <div class="absolute right-3 top-3 rounded-full bg-gray-200/80 px-3 py-1 text-sm font-medium text-gray-700">
+                                ${product.categoryName}
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold text-gray-900 truncate">${product.description}</h3>
+                            <p class="text-sm text-gray-500">${product.manufacturer}</p>
+                            <div class="mt-4 flex items-center justify-end">
+                                <span class="text-lg font-bold text-[#929200]">${formatCurrency(product.sellPrice)}</span>
+                            </div>
+                        </div>
+                    </a>
+                `;
+                })
+            } else {
+                results.innerHTML += `<h3 class="text-center sm:text-left text-xl text-gray-500">No Boats Found</h3>`;
+            }
+        });
+    });
+
+
+    async function fetchData(endpoint) {
+        try {
+            const response = await fetch(endpoint, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+
+            const data = await response.json();
+            console.log(data);
+            return data;
+        } catch (error) {
+            console.error('Fetch error:', error);
+            return [];
+        }
+    }
+
+
+    function convertByteArrayToBase64(byteArray) {
+        try {
+            if (!byteArray) return null;
+
+            const bytes = new Uint8Array(byteArray);
+            const binaryString = bytes.reduce((str, byte) => str + String.fromCharCode(byte), '');
+            const base64String = btoa(binaryString);
+
+            return base64String;
+        } catch (error) {
+            console.error('Error converting image:', error);
+            return null;
+        }
+    }
+
+    function formatCurrency(value) {
+        const number = parseFloat(value);
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 0
+        }).format(number);
+    }
+</script>

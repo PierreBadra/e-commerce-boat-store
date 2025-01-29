@@ -1,0 +1,142 @@
+﻿@model pbadraH60A01.Models.Product
+@{
+    ViewData["Title"] = $"Edit {ViewData["Description"]} | Boatbud";
+}
+<h2 class="text-center">Edit @ViewData["Description"]</h2>
+<div class="col-lg-6 col-md-8 col-sm-10 mx-auto">
+    <form enctype="multipart/form-data" asp-controller="Products" asp-action="Edit" class="shadow-sm overflow-hidden rounded-3 p-4 bg-light">
+        <div class="form-floating mb-3">
+            <input type="hidden" asp-for="ProductId" value="@Model.ProductId">
+            <input asp-for="Description"
+                   type="text"
+                   class="form-control @(ViewData.ModelState["Description"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                   id="floatingInput1"
+                   placeholder="Description">
+            <label asp-for="Description" for="floatingInput1"></label>
+            <div class="invalid-feedback">
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="Manufacturer"
+                   type="text"
+                   class="form-control @(ViewData.ModelState["Manufacturer"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                   id="floatingInput2"
+                   placeholder="Manufacturer">
+            <label asp-for="Manufacturer" for="floatingInput2"></label>
+            <div class="invalid-feedback">
+                @Html.ValidationMessageFor(model => model.Manufacturer)
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="Stock"
+                   class="form-control @(ViewData.ModelState["Stock"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                   id="floatingInput"
+                   placeholder="Stock">
+            <label asp-for="Stock" for="floatingInput"></label>
+            <div class="invalid-feedback">
+                @Html.ValidationMessageFor(model => model.Stock)
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            @if (User.IsInRole("Manager"))
+            {
+                <input asp-for="BuyPrice"
+                       type="text"
+                       class="form-control @(ViewData.ModelState["BuyPrice"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                       id="floatingInput"
+                       placeholder="Buy Price"
+                       pattern="^\d+(\.\d+)?$">
+            }
+            else
+            {
+                <input asp-for="BuyPrice"
+                       readonly
+                       type="text"
+                       class="form-control @(ViewData.ModelState["BuyPrice"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                       id="floatingInput"
+                       placeholder="Buy Price"
+                       pattern="^\d+(\.\d+)?$">
+            }
+            
+            <label asp-for="BuyPrice" for="floatingInput"></label>
+            <div class="invalid-feedback">
+                @Html.ValidationMessageFor(model => model.BuyPrice)
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            @if (User.IsInRole("Manager"))
+            {
+                <input asp-for="SellPrice"
+                       type="text"
+                       class="form-control @(ViewData.ModelState["SellPrice"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                       id="floatingInput"
+                       placeholder="Sell Price"
+                       pattern="^\d+(\.\d+)?$">
+            }
+            else
+            {
+                <input asp-for="SellPrice"
+                       readonly
+                       type="text"
+                       class="form-control @(ViewData.ModelState["SellPrice"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                       id="floatingInput"
+                       placeholder="Sell Price"
+                       pattern="^\d+(\.\d+)?$">
+            }
+            <label asp-for="SellPrice" for="floatingInput"></label>
+            <div class="invalid-feedback">
+                @Html.ValidationMessageFor(model => model.SellPrice)
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <select asp-for="ProdCatId" class="form-select @(ViewData.ModelState["ProdCatId"]?.Errors.Count > 0 ? "is-invalid" : "")">
+                <option value="">--Select a Category--</option>
+                @if (ViewData["Categories"] != null)
+                {
+                    foreach (var category in ViewData["Categories"] as IEnumerable<pbadraH60A01.Models.ProductCategory>)
+                    {
+                        <option value="@category.CategoryId">@category.ProdCat</option>
+                    }
+                }
+            </select>
+            <label asp-for="ProdCatId">Category</label>
+            <div class="invalid-feedback">
+                @Html.ValidationMessageFor(model => model.ProdCatId)
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="file">Upload image</label>
+            <input asp-for="ImageFile" class="form-control @(ViewData.ModelState["ImageFile"]?.Errors.Count > 0 ? "is-invalid" : "")" type="file" id="file">
+            <div class="invalid-feedback">
+                @Html.ValidationMessageFor(model => model.ImageFile)
+            </div>
+        </div>
+
+        <div class="mb-3">
+            @if (ViewData["ImageFile"] != null)
+            {
+                <label class="form-label">Existing Image</label>
+                <input type="hidden" asp-for="ImageFile"/>
+                <input type="hidden" asp-for="ImageName"/>
+                <div class="d-flex flex-column-reverse justify-content-between align-items-start gap-2">
+                    <label class="form-check form-switch">
+                        <span class="label-text">Remove Image</span>
+                        <input class="form-check-input" type="checkbox" role="switch" name="deleteImage" id="deleteImage"/>
+                    </label>
+                    <img style="object-fit: cover;" class="w-100 rounded" src="data:image/jpeg;base64,@(Convert.ToBase64String(ViewData["ImageFile"] as byte[]))" alt="Product Image"/>
+                </div>
+            }
+        </div>
+
+        <div class="d-flex d-md-flex align-items-center justify-content-end gap-2 flex-column flex-md-row">
+            <input type="submit" value="Update Boat" class="btn btn-primary">
+            <a type="button" asp-action="Index" asp-controller="Products" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

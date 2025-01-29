@@ -1,0 +1,22 @@
+﻿@model string
+
+@if (!String.IsNullOrEmpty(Model))
+{
+var statusColors = Model.StartsWith("Error") ?
+"bg-red-50 text-red-700 border-red-200" :
+"bg-green-50 text-green-700 border-green-200";
+
+<div x-data="{ open: true }" x-show="open"
+     class="@statusColors rounded-md p-4 border mb-4">
+    <div class="flex justify-between items-center">
+        <div class="flex-1">@Model</div>
+        <button type="button"
+                onclick="this.parentElement.parentElement.remove()"
+                class="inline-flex rounded-md p-1.5 hover:bg-opacity-20 hover:bg-black focus:outline-none">
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+</div>
+}

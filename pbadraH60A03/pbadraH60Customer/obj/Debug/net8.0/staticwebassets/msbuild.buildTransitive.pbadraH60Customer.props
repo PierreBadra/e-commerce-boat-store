@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/pbadraH60Customer.props" />
+</Project>

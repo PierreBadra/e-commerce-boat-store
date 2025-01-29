@@ -1,0 +1,146 @@
+@model pbadraH60Customer.Models.CustomerCartItemsViewModel
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "_Layout";
+    decimal subtotal = 0;
+}
+
+<a class="text-gray-500 mb-10 flex items-center justify-start gap-2" asp-action="Index" asp-controller="ShoppingCart"><i data-lucide="arrow-left"></i> Cancel</a>
+<div class="flex flex-col md:flex-row md:justify-between md:items-center">
+    <h1 class="text-3xl font-bold text-gray-900">Checkout</h1>
+</div>
+<section class="bg-white py-8 antialiased dark:bg-gray-900">
+    <form asp-action="Checkout" asp-controller="ShoppingCart">
+        <div class="lg:flex lg:items-start lg:gap-12 xl:gap-16">
+            <div class="min-w-0 flex-1 space-y-8">
+                <div class="space-y-4">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Delivery Details</h2>
+
+                    <input type="hidden" class="hidden" asp-for="Customer.CustomerId" value="@Model.Customer.CustomerId">
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div>
+                            <label asp-for="Customer.FirstName" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+                            <input asp-for="Customer.FirstName" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Bonnie"/>
+                            <span class="text-xs text-red-500" asp-validation-for="Customer.FirstName"></span>
+                        </div>
+
+                        <div>
+                            <label asp-for="Customer.LastName" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+                            <input asp-for="Customer.LastName" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Green"/>
+                            <span class="text-xs text-red-500" asp-validation-for="Customer.LastName"></span>
+                        </div>
+
+                        <div>
+                            <div class="mb-2 flex items-center gap-2">
+                                <label asp-for="Customer.Province" class="block text-sm font-medium text-gray-900 dark:text-white">Province*</label>
+                            </div>
+                            <select id="provinceCode" asp-for="Customer.Province" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500">
+                                <option value="QC">Quebec</option>
+                                <option value="ON">Ontario</option>
+                                <option value="NB">New Brunswick</option>
+                                <option value="MB">Manitoba</option>
+                            </select>
+                            <span class="text-xs text-red-500" asp-validation-for="Customer.Province"></span>
+                        </div>
+
+                        <div>
+                            <label asp-for="Customer.Address" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Address*</label>
+                            <input asp-for="Customer.Address" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="123 street drive">
+                            <span asp-validation-for="Customer.Address" class="text-xs text-red-500"></span>
+                        </div>
+
+                        <div>
+                            <label asp-for="Customer.Email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Email*</label>
+                            <input asp-for="Customer.Email" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="example@gmail.com"/>
+                            <span class="text-xs text-red-500" asp-validation-for="Customer.Email"></span>
+                        </div>
+
+                        <div>
+                            <label asp-for="Customer.PhoneNumber" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
+                            <input asp-for="Customer.PhoneNumber" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="819 234-2342"/>
+                            <span class="text-xs text-red-500" asp-validation-for="Customer.PhoneNumber"></span>
+                        </div>
+
+                        <div class="col-span-1 sm:col-span-2">
+                            <label asp-for="Customer.CreditCard" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Credit Card*</label>
+                            <input asp-for="Customer.CreditCard" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="4242424242424242"/>
+                            <span class="text-xs text-red-500" asp-validation-for="Customer.CreditCard"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 w-full space-y-6 sm:mt-8 lg:mt-0">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Cart Summary</h2>
+                    <div class="flex flex-col gap-4">
+                        @for (int i = 0; i < Model.CartItems.Count; i++)
+                        {
+                            var itemTotal = Model.CartItems[i].Quantity *  Model.CartItems[i].Price;
+                            subtotal += itemTotal;
+                            <input type="hidden" asp-for="CartItems[i].CartItemId" value="@Model.CartItems[i].CartItemId"/>
+                            <input type="hidden" asp-for="CartItems[i].CartId" value="@Model.CartItems[i].CartId"/>
+                            <input type="hidden" asp-for="CartItems[i].ProductId" value="@Model.CartItems[i].ProductId"/>
+                            <input type="hidden" asp-for="CartItems[i].Quantity" value="@Model.CartItems[i].Quantity"/>
+                            <input type="hidden" asp-for="CartItems[i].Price" value="@Model.CartItems[i].Price"/>
+                            <input type="hidden" asp-for="CartItems[i].Product.ProductId" value="@Model.CartItems[i].Product.ProductId"/>
+                            <input type="hidden" asp-for="CartItems[i].Product.Description" value="@Model.CartItems[i].Product.Description"/>
+                            <input type="hidden" asp-for="CartItems[i].Product.categoryName" value="@Model.CartItems[i].Product.categoryName"/>
+                            <input type="hidden" asp-for="CartItems[i].Product.Manufacturer" value="@Model.CartItems[i].Product.Manufacturer"/>
+                            <input type="hidden" asp-for="CartItems[i].Product.Stock" value="@Model.CartItems[i].Product.Stock"/>
+                            <input type="hidden" asp-for="CartItems[i].Product.SellPrice" value="@Model.CartItems[i].Product.SellPrice"/>
+                            <input type="hidden" asp-for="CartItems[i].Product.ImageFile" value="@($"{Convert.ToBase64String(Model.CartItems[i].Product.ImageFile)}")"/>
+                            
+                            <div id="cart-item-@Model.CartItems[i].CartItemId" class="flex flex-col sm:flex-row flex-wrap gap-6 border-b">
+                                <div class="w-full flex gap-4 mb-4">
+                                    <img src="@(Model.CartItems[i].Product.ImageFile != null ? $"data:image/jpeg;base64,{Convert.ToBase64String(Model.CartItems[i].Product.ImageFile)}" : Url.Content("~/images/Default Image.svg"))" alt="Product image" class="rounded-lg w-16 h-16 object-cover">
+                                    <div>
+                                        <h2 class="text-gray-900 text-lg font-bold">
+                                            @Model.CartItems[i].Product.Description
+                                        </h2>
+                                        <p class="text-gray-600 text-sm">@Model.CartItems[i].Product.Manufacturer</p>
+                                    </div>
+                                    <div class="flex items-end ml-auto">
+                                        <input type="hidden" class="hidden" name="cartId" value="@Model.CartItems[i].CartId">
+                                        <input type="hidden" class="hidden" name="productId" value="@Model.CartItems[i].ProductId">
+                                        <input type="hidden" class="hidden" name="price" value="@Model.CartItems[i].Price">
+                                        <span class="item-total-price">@string.Format("${0:N0}", Model.CartItems[i].Price * Model.CartItems[i].Quantity)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-6 w-full space-y-6 sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md">
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Payment</h2>
+                <div id="payment-summary" class="relative flow-root">
+                    <div class="-my-3 divide-y divide-gray-200 dark:divide-gray-800">
+                        <dl class="flex items-center justify-between gap-4 py-3">
+                            <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Subtotal</dt>
+                            <dd id="amount" class="text-base font-medium text-gray-900 dark:text-white">@string.Format("${0:N0}", subtotal)</dd>
+                            <input type="hidden" class="hidden" name="amount" value="@subtotal">
+                        </dl>
+
+                        <dl class="flex items-center justify-between gap-4 py-3">
+                            <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Tax</dt>
+                            <dd id="tax" class="text-base font-medium text-gray-900 dark:text-white"></dd>
+                            <input type="hidden" class="hidden" name="tax" value="0">
+                        </dl>
+
+                        <dl class="flex items-center justify-between gap-4 py-3">
+                            <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
+                            <dd id="total" class="text-base font-bold text-gray-900 dark:text-white"></dd>
+                            <input type="hidden" class="hidden" name="total" value="0">
+                        </dl>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <button type="submit" class="justify-center w-full bg-gray-900 flex gap-2 items-center text-gray-200 py-2 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Pay</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+<script type="module" src="~/js/checkout.js"></script>

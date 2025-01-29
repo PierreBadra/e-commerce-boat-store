@@ -1,0 +1,13 @@
+﻿@model IEnumerable<pbadraH60A01.Models.CategoryViewModel>
+
+<ul class="dropdown-menu bg-primary" aria-labelledby="boatsDropdown">
+    <li><a class="dropdown-item text-white" asp-area="" asp-controller="Products" asp-action="Index">All Boats</a></li>
+    @foreach (var category in Model)
+    {
+        <li>
+            <a class="dropdown-item text-white" asp-area="" asp-controller="Products" asp-action="Category" asp-route-id="@category.Id">
+                @category.Name
+            </a>
+        </li>
+    }
+</ul>
