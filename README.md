@@ -43,9 +43,9 @@ Before running the project, ensure you have:
 
 ### 🗄 **Database Configuration**  
 1. **Clone the repository**:  
-   ```sh
-   git clone https://github.com/your-repository.git
-   ```  
+```sh
+git clone https://github.com/your-repository.git
+```  
 2. **Open Microsoft SQL Server Management Studio 19 (SSMS)** and log in.  
 3. Inside SSMS, open the SQL script **`pbadraH60A03Database.sql`** (located at the root of the repository).  
 4. **Rename all instances** of `"pbadraH60A03Database"` in the script to your preferred database name.  
@@ -67,14 +67,14 @@ Before running the project, ensure you have:
 1. **Open the project**:  
    - Navigate to the **`pbadrah60manager`** folder and open it in **Visual Studio Code**.  
 2. **Install dependencies**:  
-   ```sh
-   npm install
-   ```  
+```sh
+npm install
+```  
 3. **Run the application**:  
-   ```sh
-   npm run dev
-   ```  
-   **⚠️ Ensure `pbadraH60Services` is still running before starting the manager frontend.**  
+```sh
+npm run dev
+```  
+**⚠️ Ensure `pbadraH60Services` is still running before starting the manager frontend.**  
 
 ✅ The **Manager Dashboard** should now be running.  
 
