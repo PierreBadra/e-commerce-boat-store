@@ -31,14 +31,6 @@ A **RESTful API** built with **Swagger**, providing endpoints to power the **[St
 
 This project demonstrates **full-stack development**, integrating **authentication, role-based authorization, inventory management, and a scalable API**, making it a complete e-commerce solution.
 
-To make the **"To Run Locally"** section more consistent with the **first part** of your README, consider the following improvements:  
-
-1. **Use section icons** to match the style of the project descriptions.  
-2. **Break down steps clearly** with bolded actions.  
-3. **Ensure a uniform tone**—use imperative language consistently (e.g., "Clone the repository" instead of "You should clone the repository").  
-4. **Ensure consistency in formatting**—for example, use `inline code` for filenames and commands.  
-5. **Keep terminology consistent**—e.g., refer to projects using the same names as in the first section.  
-
 ---
 
 ## 🚀 **To Run Locally**  
@@ -49,8 +41,6 @@ Before running the project, ensure you have:
 - **Microsoft SQL Server Management Studio 19 (SSMS)** installed  
 - **Access to the school VPN** (if connecting remotely)  
 
----
-
 ### 🗄 **Database Configuration**  
 1. **Clone the repository**:  
    ```sh
@@ -60,8 +50,6 @@ Before running the project, ensure you have:
 3. Inside SSMS, open the SQL script **`pbadraH60A03Database.sql`** (located at the root of the repository).  
 4. **Rename all instances** of `"pbadraH60A03Database"` in the script to your preferred database name.  
 5. **Run the script** by clicking the **Execute** (▶) button.  
-
----
 
 ### 🏗 **Running the MVC Projects**  
 1. **Open the solution**:  
@@ -74,8 +62,6 @@ Before running the project, ensure you have:
    - Then, run the **other two projects** (`pbadraH60Customer` and `pbadraH60Store`) in any order.  
 
 ✅ The **Customer Store** and **Store Dashboard** should now be running.  
-
----
 
 ### 📊 **Running the Manager Dashboard**  
 1. **Open the project**:  
@@ -91,8 +77,6 @@ Before running the project, ensure you have:
    **⚠️ Ensure `pbadraH60Services` is still running before starting the manager frontend.**  
 
 ✅ The **Manager Dashboard** should now be running.  
-
----
 
 ### 🔑 **User Accounts for Testing**  
 | **Role**   | **Email**                      | **Password**    |
